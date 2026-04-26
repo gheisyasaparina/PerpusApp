@@ -1,6 +1,6 @@
 <div class="sidebar-header" style="padding: 10px 15px 20px; font-weight: bold; color: #38bdf8; display: flex; align-items: center; gap: 10px;">
     <i class="bi bi-book-half" style="font-size: 1.5rem;"></i>
-    <span>PerpusApp</span>
+    <span>LitSpace</span>
 </div>
 
 <a href="<?= base_url('dashboard') ?>" class="nav-link <?= (uri_string() == 'dashboard') ? 'active' : '' ?>">

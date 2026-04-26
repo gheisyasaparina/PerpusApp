@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title> PerpustakaanApp </title>
+    <title> LitSpace </title>
 
     <link href="<?= base_url('assets/css/bootstrap.min.css') ?>" rel="stylesheet">
     <link href="<?= base_url('assets/bootstrap-icons-1.13.1/bootstrap-icons.css') ?>" rel="stylesheet">
@@ -103,7 +103,7 @@
     <div class="sidebar">
         <div class="sidebar-header">
             <i class="bi bi-book-half"></i>
-            <span>PerpusApp</span>
+            <span>LitSpace</span>
         </div>
 
         <a href="<?= base_url('dashboard') ?>" class="<?= (uri_string() == 'dashboard') ? 'active' : '' ?>">
