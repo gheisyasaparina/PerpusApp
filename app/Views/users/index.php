@@ -2,107 +2,191 @@
 <?= $this->section('content') ?>
 
 <div class="container-fluid">
-    <div class="card shadow-sm border-0 mb-4" style="border-radius: 12px;">
-        <div class="card-body">
-            <div class="d-flex justify-content-between align-items-center mb-3">
-                <h4 class="fw-bold mb-0" style="color: #1e293b;">Data Users</h4>
-                <div class="d-flex gap-2">
-                    <button class="btn btn-outline-secondary"><i class="bi bi-printer"></i> Print</button>
-                    <button class="btn btn-primary"><i class="bi bi-person-plus"></i> Tambah User</button>
-                </div>
-            </div>
 
-            <form action="" method="get" class="row g-2">
+    <!-- 🔥 HEADER -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h3 class="fw-bold mb-0">👥 Manajemen User</h3>
+            <small class="text-muted">Kelola semua data pengguna sistem</small>
+        </div>
+
+        <div class="d-flex gap-2">
+            <a href="<?= base_url('users/print') ?>" class="btn btn-light border">
+                <i class="bi bi-printer"></i>
+            </a>
+
+            <a href="<?= base_url('users/create') ?>" class="btn btn-primary shadow-sm">
+                <i class="bi bi-person-plus"></i> Tambah User
+            </a>
+        </div>
+    </div>
+
+    <!-- 🔥 CARD STATS -->
+    <div class="row mb-4">
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm p-3">
+                <h6 class="text-muted">Total User</h6>
+                <h3 class="fw-bold"><?= count($users) ?></h3>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm p-3">
+                <h6 class="text-muted">Admin</h6>
+                <h3 class="fw-bold text-danger">
+                    <?= count(array_filter($users, fn($u) => $u['role']=='admin')) ?>
+                </h3>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm p-3">
+                <h6 class="text-muted">Anggota</h6>
+                <h3 class="fw-bold text-primary">
+                    <?= count(array_filter($users, fn($u) => $u['role']=='anggota')) ?>
+                </h3>
+            </div>
+        </div>
+    </div>
+
+    <!-- 🔍 SEARCH -->
+    <div class="card shadow-sm border-0 mb-3">
+        <div class="card-body">
+            <form method="get" action="<?= base_url('users') ?>" class="row g-2">
+
                 <div class="col-md-3">
-                    <select class="form-select">
-                        <option selected>-- Semua Role --</option>
-                        <option>Admin</option>
-                        <option>Petugas</option>
-                        <option>Anggota</option>
+                    <select name="role" class="form-select">
+                        <option value="">Semua Role</option>
+                        <option value="admin">Admin</option>
+                        <option value="petugas">Petugas</option>
+                        <option value="anggota">Anggota</option>
                     </select>
                 </div>
-                <div class="col-md-4">
-                    <input type="text" class="form-control" placeholder="Cari Nama, Email, atau Username...">
+
+                <div class="col-md-5">
+                    <input type="text" name="keyword" class="form-control" placeholder="Cari user...">
                 </div>
+
                 <div class="col-md-auto">
-                    <button type="submit" class="btn btn-info text-white px-4">Cari</button>
-                    <button type="reset" class="btn btn-light border px-4">Reset</button>
+                    <button class="btn btn-info text-white">
+                        <i class="bi bi-search"></i>
+                    </button>
+                    <a href="<?= base_url('users') ?>" class="btn btn-light border">Reset</a>
                 </div>
+
             </form>
         </div>
     </div>
 
-    <div class="card shadow-sm border-0" style="border-radius: 12px; overflow: hidden;">
-        <div class="card-body p-0">
-            <div class="table-responsive">
-                <table class="table table-hover align-middle mb-0">
-                    <thead class="table-light">
-                        <tr>
-                            <th class="px-4 py-3" style="width: 50px;">No</th>
-                            <th class="py-3">Foto</th>
-                            <th class="py-3">Nama</th>
-                            <th class="py-3">Email</th>
-                            <th class="py-3">Username</th>
-                            <th class="py-3">Role</th>
-                            <th class="px-4 py-3 text-center">Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php 
-                        $users = [
-                            ['gheisya', 'gheisya@gmail.com', 'gheisyasafarina', 'Admin'],
-                            ['markeu', 'markeu@gmail.com', 'onyourmark', 'Anggota'],
-                            ['mutiara laila', 'mutiaralaila@gmail.com', 'mutiara', 'Anggota'],
-                            ['karina', 'karina@gmail.com', 'karina', 'Anggota'],
-                            ['dinda', 'dinda@gmail.com', 'dinda', 'Anggota'],
-                            ['paos', 'qwertyu123@gmail.com', 'paes', 'Anggota'],
-                        ];
-                        foreach ($users as $index => $u): 
-                        ?>
-                        <tr>
-                            <td class="px-4"><?= $index + 1 ?></td>
-                            <td>
-                                <img src="https://ui-avatars.com/api/?name=<?= $u[0] ?>&background=random" class="rounded-circle" width="35" alt="profile">
-                            </td>
-                            <td class="fw-bold"><?= ucwords($u[0]) ?></td>
-                            <td class="text-muted"><?= $u[1] ?></td>
-                            <td><code><?= $u[2] ?></code></td>
-                            <td>
-                                <span class="badge <?= ($u[3] == 'Admin') ? 'bg-danger' : 'bg-primary' ?> bg-opacity-10 <?= ($u[3] == 'Admin') ? 'text-danger' : 'text-primary' ?> border px-3 py-2">
-                                    <?= $u[3] ?>
-                                </span>
-                            </td>
-                            <td class="px-4 text-center">
-                                <div class="btn-group shadow-sm" style="border-radius: 8px; overflow: hidden;">
-                                    <a href="#" class="btn btn-sm btn-light border-end" title="Detail"><i class="bi bi-eye text-info"></i></a>
-                                    <a href="#" class="btn btn-sm btn-light border-end" title="Edit"><i class="bi bi-pencil text-warning"></i></a>
-                                    <a href="https://wa.me/62812345678" target="_blank" class="btn btn-sm btn-light border-end" title="Kirim WA"><i class="bi bi-whatsapp text-success"></i></a>
-                                    <a href="#" class="btn btn-sm btn-light text-danger" title="Hapus"><i class="bi bi-trash"></i></a>
+    <!-- 📊 TABLE -->
+    <div class="card border-0 shadow-sm">
+        <div class="table-responsive">
+
+            <table class="table align-middle mb-0">
+                <thead class="bg-light">
+                    <tr>
+                        <th>No</th>
+                        <th>User</th>
+                        <th>Username</th>
+                        <th>Role</th>
+                        <th class="text-center">Aksi</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                <?php if (!empty($users)): ?>
+                    <?php $no=1; foreach($users as $u): ?>
+
+                    <tr>
+                        <td><?= $no++ ?></td>
+
+                        <!-- USER INFO -->
+                        <td>
+                            <div class="d-flex align-items-center gap-2">
+                                <img src="<?= $u['foto'] 
+                                    ? base_url('uploads/users/'.$u['foto']) 
+                                    : 'https://ui-avatars.com/api/?name='.$u['nama'] ?>"
+                                    class="rounded-circle"
+                                    width="40">
+
+                                <div>
+                                    <div class="fw-bold"><?= $u['nama'] ?></div>
+                                    <small class="text-muted"><?= $u['email'] ?></small>
                                 </div>
-                            </td>
-                        </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
-            </div>
+                            </div>
+                        </td>
+
+                        <td><code><?= $u['username'] ?></code></td>
+
+                        <!-- ROLE -->
+                        <td>
+                            <span class="badge 
+                                <?= $u['role']=='admin' ? 'bg-danger' : 'bg-primary' ?>">
+                                <?= ucfirst($u['role']) ?>
+                            </span>
+                        </td>
+
+                        <!-- AKSI -->
+                        <td class="text-center">
+                            <div class="d-flex justify-content-center gap-1">
+
+                                <a href="<?= base_url('users/detail/'.$u['id']) ?>" 
+                                   class="btn btn-sm btn-light border">
+                                   <i class="bi bi-eye"></i>
+                                </a>
+
+                                <a href="<?= base_url('users/edit/'.$u['id']) ?>" 
+                                   class="btn btn-sm btn-warning text-white">
+                                   <i class="bi bi-pencil"></i>
+                                </a>
+
+                                <a href="<?= base_url('users/delete/'.$u['id']) ?>" 
+                                   class="btn btn-sm btn-danger"
+                                   onclick="return confirm('Yakin hapus?')">
+                                   <i class="bi bi-trash"></i>
+                                </a>
+
+                            </div>
+                        </td>
+
+                    </tr>
+
+                    <?php endforeach; ?>
+                <?php else: ?>
+
+                    <tr>
+                        <td colspan="5" class="text-center text-muted py-4">
+                            Tidak ada data
+                        </td>
+                    </tr>
+
+                <?php endif; ?>
+                </tbody>
+
+            </table>
+
         </div>
     </div>
+
 </div>
 
 <style>
-    .table thead th {
-        font-size: 0.85rem;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-        color: #64748b;
-    }
-    .btn-group .btn:hover {
-        background-color: #f8fafc;
-    }
-    .badge {
-        font-weight: 600;
-        letter-spacing: 0.3px;
-    }
+.card {
+    border-radius: 14px;
+}
+
+.table td {
+    vertical-align: middle;
+}
+
+.btn {
+    border-radius: 8px;
+}
+
+.badge {
+    font-size: 12px;
+    padding: 6px 10px;
+}
 </style>
 
 <?= $this->endSection() ?>

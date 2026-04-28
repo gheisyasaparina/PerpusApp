@@ -18,4 +18,19 @@ class Penulis extends BaseController
         $data['penulis'] = $this->penulis->findAll();
         return view('penulis/index', $data);
     }
+
+    // 🔥 TAMBAH INI
+    public function create()
+    {
+        return view('penulis/create');
+    }
+
+    public function store()
+    {
+        $this->penulis->save([
+            'nama_penulis' => $this->request->getPost('nama_penulis')
+        ]);
+
+        return redirect()->to('/penulis');
+    }
 }

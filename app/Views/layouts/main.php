@@ -101,6 +101,7 @@
 
 <body>
     <div class="sidebar">
+        <?php $role = session()->get('role'); ?>
         <div class="sidebar-header">
             <i class="bi bi-book-half"></i>
             <span>LitSpace</span>
@@ -109,47 +110,46 @@
         <a href="<?= base_url('dashboard') ?>" class="<?= (uri_string() == 'dashboard') ? 'active' : '' ?>">
             <i class="bi bi-speedometer2"></i> Dashboard
         </a>
-        
-        <a href="<?= base_url('users') ?>" class="<?= (uri_string() == 'users') ? 'active' : '' ?>">
-            <i class="bi bi-people"></i> Users
-        </a>
 
-        <a href="<?= base_url('anggota') ?>" class="<?= (uri_string() == 'anggota') ? 'active' : '' ?>">
-            <i class="bi bi-person-vcard"></i> Anggota
-        </a>
+        <?php if ($role == 'admin'): ?>
 
-        <a href="<?= base_url('penulis') ?>" class="<?= (uri_string() == 'penulis') ? 'active' : '' ?>">
-            <i class="bi bi-pencil-square"></i> Penulis
-        </a>
+            <a href="<?= base_url('users') ?>"><i class="bi bi-people"></i> Users</a>
+            <a href="<?= base_url('anggota') ?>"><i class="bi bi-person-vcard"></i> Anggota</a>
+            <a href="<?= base_url('penulis') ?>"><i class="bi bi-pencil-square"></i> Penulis</a>
+            <a href="<?= base_url('buku') ?>"><i class="bi bi-book"></i> Buku</a>
 
-        <a href="<?= base_url('buku') ?>" class="<?= (uri_string() == 'buku') ? 'active' : '' ?>">
-            <i class="bi bi-book"></i> Buku
-        </a>
+            <a href="<?= base_url('peminjaman') ?>">
+                <i class="bi bi-journal-arrow-up"></i> Peminjaman
+            </a>
 
-        <a href="<?= base_url('rak') ?>" class="<?= (uri_string() == 'rak') ? 'active' : '' ?>">
-            <i class="bi bi-layers"></i> Rak
-        </a>
+            <!-- ✅ TAMBAHAN -->
+            <a href="<?= base_url('pengembalian') ?>">
+                <i class="bi bi-journal-check"></i> Pengembalian
+            </a>
 
-        <a href="<?= base_url('peminjaman') ?>" class="<?= (uri_string() == 'peminjaman') ? 'active' : '' ?>">
-            <i class="bi bi-journal-arrow-up"></i> Peminjaman
-        </a>
+            <!-- ✅ TAMBAHAN -->
+            <a href="<?= base_url('denda') ?>">
+                <i class="bi bi-cash"></i> Denda
+            </a>
 
-        <a href="<?= base_url('pengembalian') ?>" class="<?= (uri_string() == 'pengembalian') ? 'active' : '' ?>">
-            <i class="bi bi-journal-check"></i> Pengembalian
-        </a>
+            <a href="<?= base_url('rak') ?>"><i class="bi bi-layers"></i> Rak</a>
+            <a href="<?= base_url('kategori') ?>"><i class="bi bi-tags"></i> Kategori</a>
 
-        <a href="<?= base_url('kategori') ?>" class="<?= (uri_string() == 'kategori') ? 'active' : '' ?>">
-            <i class="bi bi-tags"></i> Kategori
-        </a>
+        <?php elseif ($role == 'anggota'): ?>
 
-        <a href="<?= base_url('setting') ?>" class="<?= (uri_string() == 'setting') ? 'active' : '' ?>">
-            <i class="bi bi-gear"></i> Setting
-        </a>
+            <a href="<?= base_url('buku') ?>"><i class="bi bi-book"></i> Buku</a>
+            <a href="<?= base_url('peminjaman') ?>"><i class="bi bi-journal-arrow-up"></i> Peminjaman</a>
+            <a href="<?= base_url('pengembalian') ?>"><i class="bi bi-journal-check"></i> Pengembalian</a>
+            <a href="<?= base_url('denda') ?>"><i class="bi bi-cash"></i> Denda</a>
+
+        <?php endif; ?>
 
         <a href="<?= base_url('backup') ?>" class="btn-backup">
             <i class="bi bi-database-fill-up"></i> Backup Database
         </a>
-
+<a href="<?= base_url('restore') ?>" class="btn-backup" style="background:#f59e0b;">
+    <i class="bi bi-arrow-clockwise"></i> Restore Database
+</a>
         <div class="user-profile">
             <small style="color: #94a3b8;">Masuk sebagai:</small>
             <div style="display: flex; align-items: center; gap: 10px; margin-top: 5px;">

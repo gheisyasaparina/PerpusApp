@@ -31,10 +31,12 @@
 
 <hr style="border-color: rgba(255,255,255,0.1); margin: 5px 0;">
 
-<a href="<?= base_url('peminjaman') ?>" class="nav-link <?= (uri_string() == 'peminjaman') ? 'active' : '' ?>">
-    <i class="bi bi-journal-arrow-up"></i> Peminjaman
-</a>
-
+<?php if (in_array(strtolower(session()->get('role')), ['admin','petugas'])): ?>
+    <a href="<?= base_url('peminjaman') ?>" 
+       class="nav-link <?= (uri_string() == 'peminjaman') ? 'active' : '' ?>">
+        <i class="bi bi-journal-arrow-up"></i> Peminjaman
+    </a>
+<?php endif; ?>
 <a href="<?= base_url('pengembalian') ?>" class="nav-link <?= (uri_string() == 'pengembalian') ? 'active' : '' ?>">
     <i class="bi bi-journal-check"></i> Pengembalian
 </a>
