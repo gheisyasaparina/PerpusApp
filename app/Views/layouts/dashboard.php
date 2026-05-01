@@ -95,6 +95,7 @@
     <div class="mt-3">
         <p>Ini adalah Halaman Dashboard
             <br>Selamat datang di <b>perpustakaan</b>App!
+            <br>Cemangatt tataaaa
         </p>
     </div>
 </div>

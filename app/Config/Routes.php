@@ -43,6 +43,7 @@ $routes->group('users', $authFilter, function ($routes) use ($intRole, $allRole)
     $routes->get('detail/(:num)', 'Users::detail/$1', $allRole);
     $routes->get('print', 'Users::print', $intRole);
     $routes->get('wa/(:num)', 'Users::wa/$1', $intRole);
+    $routes->get('anggota/tambah', 'Anggota::tambah');
 });
 
 // =====================
